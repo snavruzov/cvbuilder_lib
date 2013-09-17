@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.civi.pdf.patterns.db.entity.Settings" table="settings" catalog="civi_db">
+        <id name="idSetting" type="java.lang.Integer">
+            <column name="id_setting" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="users" class="com.civi.pdf.patterns.db.entity.Users"
+                     column="id_user" not-null="true" cascade="all"/>
+        <property name="password" type="string">
+            <column name="password" length="100" not-null="true" unique="false" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="100" not-null="true" unique="false" />
+        </property>
+        <property name="image" type="binary">
+            <column name="image" not-null="false" />
+        </property>
+        <property name="isdelete" type="java.lang.Boolean">
+            <column name="isdelete" not-null="true" unique="false" />
+        </property>
+        <property name="apptype" type="java.lang.Integer">
+            <column name="apptype" precision="10" not-null="true" unique="false" />
+        </property>
+        <property name="issocial_auth" type="java.lang.Boolean">
+            <column name="issocial_auth" not-null="true" unique="false" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.civi.pdf.patterns.db.entity.CvDates" table="cv_dates" catalog="civi_db">
+        <id name="id_cv" type="java.lang.Integer">
+            <column name="id_cv" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="users" class="com.civi.pdf.patterns.db.entity.Users"
+                     column="id_user" not-null="true" cascade="save-update"/>
+        <property name="fullName" type="string">
+            <column name="full_name" length="100" not-null="true" unique="false" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="100" not-null="true" unique="false" />
+        </property>
+        <property name="address1" type="string">
+            <column name="address1" length="100" not-null="true" unique="false" />
+        </property>
+        <property name="address2" type="string">
+            <column name="address2" length="100" not-null="true" unique="false" />
+        </property>
+        <property name="address3" type="string">
+            <column name="address3" length="100" not-null="true" unique="false" />
+        </property>
+        <property name="phones" type="string">
+            <column name="phones" length="100" not-null="true" unique="false" />
+        </property>
+        <property name="website" type="string">
+            <column name="website" length="100" not-null="true" unique="false" />
+        </property>
+        <property name="image" type="binary">
+            <column name="image" not-null="false" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.civi.pdf.patterns.db.entity.Sections" table="sections" catalog="civi_db">
+        <id name="id_section" type="java.lang.Integer">
+            <column name="id_section" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="dates" class="com.civi.pdf.patterns.db.entity.CvDates"
+                     column="id_cv" not-null="true" cascade="save-update"/>
+
+        <property name="attributes" type="binary">
+            <column name="attributes" not-null="false" />
+        </property>
+        <property name="sectionName" type="string">
+            <column name="section_name" length="100" not-null="true" unique="false" />
+        </property>
+
+        <property name="position" type="java.lang.Integer">
+            <column name="position" precision="10"/>
+        </property>
+        <property name="type" type="java.lang.Integer">
+            <column name="type" precision="10"/>
+        </property>
+
+    </class>
+</hibernate-mapping>
