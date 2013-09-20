@@ -28,11 +28,12 @@ public class CvDates implements java.io.Serializable{
     private String      address3;
     private String      website;
     private byte[]     image;
+    private String     title;
 
     public CvDates() {
     }
 
-    public CvDates(Integer id_cv, Users users, String jobTitle, String fullName, String email, String phones, String address1, String address2, String address3, String website, byte[] image)
+    public CvDates(Integer id_cv, Users users, String jobTitle, String fullName, String email, String phones, String address1, String address2, String address3, String website, byte[] image, String title)
     {
         this.id_cv = id_cv;
         this.users = users;
@@ -45,6 +46,7 @@ public class CvDates implements java.io.Serializable{
         this.address3 = address3;
         this.website = website;
         this.image = image;
+        this.title = title;
     }
 
     public String getJobTitle()
@@ -158,12 +160,22 @@ public class CvDates implements java.io.Serializable{
         this.image = image;
     }
 
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
     public String[] getSplitName()
     {
-        if(fullName!=null && fullName.split(" ").length==2)
+        if(fullName!=null)
         {
             return fullName.split(" ");
         }
-        else return new String[]{" "," "};
+        else return new String[]{fullName," "};
     }
 }

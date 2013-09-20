@@ -9,12 +9,14 @@ package com.civi.pdf.patterns.enums;
  */
 public enum EnumPattern {
 
-    STRONG_RED(1);
+    STRONG_RED(1,"Strong Red");
 
     public int id;
+    public String style;
 
-    EnumPattern(int id)
+    EnumPattern(int id, String style)
     {
         this.id = id;
+        this.style = style;
     }
 }

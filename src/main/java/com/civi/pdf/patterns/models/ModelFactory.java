@@ -1,21 +1,15 @@
 package com.civi.pdf.patterns.models;
 
-import com.civi.pdf.patterns.beans.WorkExperience;
-import com.civi.pdf.patterns.enums.EnumCollor;
-import com.civi.pdf.patterns.enums.EnumSection;
-import com.civi.pdf.patterns.enums.EnumTable;
+import com.civi.pdf.patterns.db.HibernateDao;
+import com.civi.pdf.patterns.enums.EnumColor;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.*;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,9 +18,11 @@ import java.util.List;
  * Time: 10:55 AM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class ModelFactory {
+public abstract class ModelFactory extends HibernateDao
+{
 
     private Paragraph paragraph;
+    private Phrase phrase;
     private String fontname;
 
     public ModelFactory(){
@@ -41,6 +37,11 @@ public abstract class ModelFactory {
         this.fontname = fontname;
     }
 
+    public ModelFactory(Phrase phrase, String fontname){
+        this.phrase = phrase;
+        this.fontname = fontname;
+    }
+
     public Font FontStyle(){
         return FontFactory.getFont("FLORSN", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 11, Font.NORMAL, new BaseColor(88,88,91));
 
@@ -49,7 +50,7 @@ public abstract class ModelFactory {
         return FontFactory.getFont(fontname, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, size, Font.NORMAL, color);
 
     }
-    public Font FontStyle(String fontname, float size, EnumCollor color){
+    public Font FontStyle(String fontname, float size, EnumColor color){
         return FontFactory.getFont(fontname, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, size, Font.NORMAL, color.color);
 
     }
@@ -57,23 +58,34 @@ public abstract class ModelFactory {
         return FontFactory.getFont(fontname, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, size, style, color);
 
     }
-    public Font FontStyle(String fontname, float size, int style, EnumCollor collor){
-        return FontFactory.getFont(fontname, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, size, style, collor.color);
+    public Font FontStyle(String fontname, float size, int style, EnumColor color){
+        return FontFactory.getFont(fontname, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, size, style, color.color);
 
     }
 
-    public Paragraph DOT(EnumCollor collor)
+    public Phrase DOT(EnumColor color)
     {
-        Font normalFont = FontFactory.getFont(fontname,BaseFont.IDENTITY_H, BaseFont.EMBEDDED,30,Font.NORMAL,collor.color);
-        paragraph.setFont(normalFont);
-        paragraph.add(" . ");
+        Font normalFont = FontFactory.getFont(fontname,BaseFont.IDENTITY_H, BaseFont.EMBEDDED,30,Font.NORMAL, color.color);
+        Phrase phrase = new Phrase(12);
+        phrase.setFont(normalFont);
+        phrase.add(".");
 
-        return paragraph;
+        return phrase;
     }
 
-    public Paragraph DotLine()
+    public Phrase DOT(EnumColor color,Phrase pr)
     {
-        Paragraph section = new Paragraph();
+        Font normalFont = FontFactory.getFont(fontname,BaseFont.IDENTITY_H, BaseFont.EMBEDDED,30,Font.NORMAL, color.color);
+        pr.setFont(normalFont);
+        pr.add(" . ");
+
+        return pr;
+    }
+
+    public Phrase DotLine()
+    {
+        Phrase section = new Phrase();
+
         DottedLineSeparator dottedLine = new DottedLineSeparator();
         dottedLine.setGap(2);
 
@@ -93,8 +105,8 @@ public abstract class ModelFactory {
         canvas.restoreState();
     }
 
-    private void addMetaData(Document document) {
-        document.addTitle("CiVi");
+    public void addMetaData(Document document, String style) {
+        document.addTitle(String.format("CiVi(%s)",style));
         document.addSubject("Using iText");
         document.addKeywords("CiVi, PDF, CV");
         document.addAuthor("Sardor Navruzov");

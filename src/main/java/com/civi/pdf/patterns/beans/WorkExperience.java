@@ -62,4 +62,10 @@ public class WorkExperience implements Serializable {
     public void setInformation(String information) {
         this.information = information;
     }
+
+    public String toString()
+    {
+         return "["+jobTitle+", "+companyName+", "+startDate+", "+endDate+"]";
+
+    }
 }

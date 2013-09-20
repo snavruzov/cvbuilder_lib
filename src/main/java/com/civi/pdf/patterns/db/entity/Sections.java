@@ -12,22 +12,35 @@ public class Sections implements java.io.Serializable{
 
     private Integer id_section;
     private CvDates dates;
-    private byte[]      attributes;
+    private byte[]  attributes;
     private String sectionName;
     private Integer position;
     private Integer type;
+    private Boolean newPage;
 
     public Sections()
     {
     }
 
-    public Sections(Integer id_section, CvDates dates, byte[] attributes, String sectionName, Integer position)
+    public Sections(Integer id_section, CvDates dates, byte[] attributes, String sectionName, Integer position, Integer type, Boolean newPage)
     {
         this.id_section = id_section;
         this.dates = dates;
         this.attributes = attributes;
         this.sectionName = sectionName;
         this.position = position;
+        this.type = type;
+        this.newPage = newPage;
+    }
+
+    public Boolean getNewPage()
+    {
+        return newPage;
+    }
+
+    public void setNewPage(Boolean newPage)
+    {
+        this.newPage = newPage;
     }
 
     public byte[] getAttributes()

@@ -6,15 +6,20 @@
  * To change this template use File | Settings | File Templates.
  */
 
+import com.civi.pdf.patterns.enums.EnumColor;
 import com.itextpdf.text.*;
+import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.itextpdf.text.pdf.PdfPCell;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
+import java.util.StringTokenizer;
 
 
 public class PDFMain {
@@ -30,10 +35,6 @@ public class PDFMain {
             colorRectangle(canvas, new BaseColor(236,236,236), 30, 682, 540, 135);
             colorRectangle(canvas, GrayColor.GRAY, 395, 645, 150, 150);
             addContent(document,"SardorNavruzov",canvas);
-
-
-
-
 
             document.close();
         } catch (Exception e) {
@@ -318,11 +319,75 @@ public class PDFMain {
 
         addEmptyLine(section,2);
 
-        normalFont = FontFactory.getFont("FLORSN_BOLD",BaseFont.IDENTITY_H, BaseFont.EMBEDDED,10,Font.NORMAL,new BaseColor(88,88,91));
-        section.setFont(normalFont);
-        section.add("CMS");
+        String elem = "||<b>CMS</b>|| ||<i>(Content Management System)</i>|| has been implemented which integrates security module, report generation " +
+                "module, module of controlling VAS media contents, IVR calls monitoring system and control system of " +
+                "SMS/USSD distribution. The Sy||<b>st</b>||em has been ||<ul><li>implemented for</li> <li>companies</li> <li>such as</li></ul>|| Beeline Kazakhstan, Beeline " +
+                "Uzbekistan, Beeline Tajikistan, Ucell(COSCOM) Uzbekistan, BWC (ROSTELECOM) Russia, Tele2 Russia, ALTEL " +
+                "(Almaty) Kazakhstan. • Entertainment/Service Portals(||<b>WAP/WEB</b>|| Portals).";
 
         normalFont = FontFactory.getFont("FLORSN",BaseFont.IDENTITY_H, BaseFont.EMBEDDED,10,Font.NORMAL,new BaseColor(88,88,91));
+        section.setFont(normalFont);
+        StringTokenizer st = new StringTokenizer(elem,"||");
+        while (st.hasMoreElements()) {
+            String str = (String)st.nextElement();
+            org.jsoup.nodes.Document doc = Jsoup.parse(str);
+            Elements tagB = doc.select("b");
+            Elements tagI = doc.select("i");
+            Elements tagL = doc.select("ul");
+            if(!tagL.isEmpty() )
+            {
+                tagL=tagL.first().getElementsByTag("li");
+            }
+            String elm = str;
+
+
+
+            System.out.println(str);
+
+
+            int k = 0;
+            if(!tagB.isEmpty())
+            {
+                normalFont = FontFactory.getFont("FLORSN_BOLD",BaseFont.IDENTITY_H, BaseFont.EMBEDDED,10,Font.NORMAL,new BaseColor(88,88,91));
+                section.setFont(normalFont);
+                elm = tagB.text();
+                section.add(elm);
+
+            }
+            else if(!tagI.isEmpty())
+            {
+                normalFont = FontFactory.getFont("FLORSN_ITALIC",BaseFont.IDENTITY_H, BaseFont.EMBEDDED,10,Font.NORMAL,new BaseColor(88,88,91));
+                section.setFont(normalFont);
+                elm = tagI.text();
+                section.add(elm);
+            }
+            else if(!tagL.isEmpty())
+            {
+                Font symbol = FontFactory.getFont("FLORSN", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 15, Font.NORMAL, new BaseColor(191, 0, 0));
+                Font font = FontFactory.getFont("FLORSN",BaseFont.IDENTITY_H, BaseFont.EMBEDDED,10,Font.NORMAL, EnumColor.GRAY.color);
+
+                com.itextpdf.text.List lst = new com.itextpdf.text.List();
+                Chunk chnk = new Chunk("\u2022 \t",symbol);
+                lst.setListSymbol(chnk);
+                for(Element li: tagL)
+                {
+                    lst.add(new ListItem(li.text(),font));
+                }
+                section.add(lst);
+
+            }
+            else
+            {
+                normalFont = FontFactory.getFont("FLORSN",BaseFont.IDENTITY_H, BaseFont.EMBEDDED,10,Font.NORMAL,new BaseColor(88,88,91));
+                section.setFont(normalFont);
+                section.add(elm);
+            }
+
+
+        }
+
+
+        /*normalFont = FontFactory.getFont("FLORSN",BaseFont.IDENTITY_H, BaseFont.EMBEDDED,10,Font.NORMAL,new BaseColor(88,88,91));
         section.setFont(normalFont);
 
         section.add(" (Content Management System) has been implemented which integrates security module, report generation " +
@@ -335,7 +400,7 @@ public class PDFMain {
                 "Kazakhstan, Tonix Kazakhstan, Beeline Tajikistan, MTS Russia. • EPS (Electronic Payment System) has been " +
                 "developed for multibank Internet payment system. The system allows to order multimedia contents to mobile-phone " +
                 "in real-time. All developed modules have been integrated to the EPS station as knowns as CyberPlat " +
-                "(http://www.cyberplat.com).");
+                "(http://www.cyberplat.com).");*/
 
 
         cell1 = new PdfPCell(new Paragraph(" "));

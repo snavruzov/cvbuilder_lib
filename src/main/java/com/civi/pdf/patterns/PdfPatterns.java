@@ -10,5 +10,5 @@ import com.civi.pdf.patterns.enums.EnumPattern;
  * To change this template use File | Settings | File Templates.
  */
 public interface PdfPatterns {
-    public void BuildPdfDesign(EnumPattern pattern);
+    public void BuildPdfDesign(EnumPattern pattern,Integer id);
 }

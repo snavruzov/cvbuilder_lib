@@ -8,6 +8,7 @@ package com.civi.pdf.patterns.api;
  */
 public class Formulas
 {
+
     public static final String BOLD = "==";
     public static final String ITALIC = "-=-";
     public static final String UNDERLINE = "_=_";
