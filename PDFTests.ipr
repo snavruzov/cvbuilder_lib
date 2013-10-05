@@ -339,6 +339,13 @@
         <root url="jar://$MAVEN_REPOSITORY$/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="PDF: templates">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../pdfCreator_common/target/pdfCreator_common-1.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
   </component>
 </project>
 

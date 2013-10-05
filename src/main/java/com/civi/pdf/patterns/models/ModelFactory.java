@@ -42,6 +42,10 @@ public abstract class ModelFactory extends HibernateDao
         this.fontname = fontname;
     }
 
+    public ModelFactory(String fontname){
+        this.fontname = fontname;
+    }
+
     public Font FontStyle(){
         return FontFactory.getFont("FLORSN", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 11, Font.NORMAL, new BaseColor(88,88,91));
 
@@ -62,6 +66,11 @@ public abstract class ModelFactory extends HibernateDao
         return FontFactory.getFont(fontname, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, size, style, color.color);
 
     }
+    public Font FontStyle(String fontname, float size, int style,String encoding,boolean emb, EnumColor color){
+        return FontFactory.getFont(fontname, encoding, emb, size, style, color.color);
+
+    }
+
 
     public Phrase DOT(EnumColor color)
     {
@@ -123,6 +132,16 @@ public abstract class ModelFactory extends HibernateDao
         }
     }
 
+
+    public String getFontname()
+    {
+        return fontname;
+    }
+
+    public void setFontname(String fontname)
+    {
+        this.fontname = fontname;
+    }
 
     @SuppressWarnings("unchecked")
     public Object extractByteAttribute(byte[] attr)

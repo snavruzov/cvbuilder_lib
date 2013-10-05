@@ -84,7 +84,9 @@ public class ProcessPdtDesign extends ModelFactory implements PdfPatterns{
             }
             finally {
                 {
+                    System.out.println("Document Status: Close - "+document.isOpen());
                     document.close();
+                    System.out.println("Closing document Close - "+document.isOpen());
                     session.close();
                 }
             }

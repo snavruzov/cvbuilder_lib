@@ -13,7 +13,8 @@ public enum EnumColor
 {
     GRAY(new BaseColor(88, 88, 91)),
     GRAY_H(new BaseColor(108,108,108)),
-    GRAY_B(new BaseColor(199,33,33)),
+    GRAY_L(new BaseColor(221,221,221)),
+    GRAY_B(new BaseColor(34,34,34)),
     RED(new BaseColor(191, 0, 0));
 
 

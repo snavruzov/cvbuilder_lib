@@ -9,7 +9,8 @@ package com.civi.pdf.patterns.enums;
  */
 public enum EnumPattern {
 
-    STRONG_RED(1,"Strong Red");
+    STRONG_RED(1,"Strong Red"),
+    COMMON(2,"Default Style");
 
     public int id;
     public String style;

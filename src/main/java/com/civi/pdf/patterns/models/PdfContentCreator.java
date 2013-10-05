@@ -69,6 +69,9 @@ public class PdfContentCreator extends ModelFactory
     public void init()
     {
         metaInformation();
+
+        all pattern initialization
+
         headerSection(common, document);
         try
         {
@@ -86,6 +89,9 @@ public class PdfContentCreator extends ModelFactory
              addMetaData(document, pattern.style);
              colorRectangle(canvas, new BaseColor(236,236,236), 30, 682, 540, 135);
              colorRectangle(canvas, GrayColor.GRAY, 395, 645, 150, 150);
+        }else if(pattern==EnumPattern.COMMON)
+        {
+            com.civi.pdf.common.service.PdfContentCreator common = new com.civi.pdf.common.service.PdfContentCreator(data,co)
         }
     }
 
@@ -180,7 +186,7 @@ public class PdfContentCreator extends ModelFactory
                 table.setWidths(columnWidths);
             } catch (DocumentException e)
             {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
 
             /*HEADER SECTION*/
@@ -381,7 +387,7 @@ public class PdfContentCreator extends ModelFactory
 
                     String element = (String) st.nextElement();
 
-                    section.add(HTMLParser.parse(element));
+                    section.add(new HTMLParser("FLORSN",10,Font.NORMAL,BaseFont.IDENTITY_H,BaseFont.EMBEDDED,EnumColor.GRAY,EnumColor.RED).parse(element));
 
                 }
 
@@ -428,7 +434,7 @@ public class PdfContentCreator extends ModelFactory
 
                     String element = (String) st.nextElement();
 
-                    section.add(HTMLParser.parse(element));
+                    section.add(new HTMLParser("FLORSN",10,Font.NORMAL,BaseFont.IDENTITY_H,BaseFont.EMBEDDED,EnumColor.GRAY,EnumColor.RED).parse(element));
 
                 }
 
